@@ -217,7 +217,7 @@ body {
 .game .row .cta {
   margin-top: 0.5rem;
   display: inline-block;
-  padding: 1rem 1rem;
+  padding: 0.5rem 0.5rem;
   font-size: 1rem;
   color: #fff;
   background-color: var(--primary);
@@ -229,7 +229,7 @@ body {
 .game .row {
   display: flex;
   flex-wrap: wrap;
-  margin-top: 5rem;
+  margin-top: 4rem;
   justify-content: center;
 }
 
