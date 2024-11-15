@@ -14,3 +14,35 @@ document.addEventListener("click", function (e) {
     navbarNav.classList.remove("active");
   }
 });
+
+function loadPage(page) {
+  let pagePath = '';
+  
+  if (page === 'vector-addition') {
+      pagePath = 'vector-addition/index.html';
+  } else if (page === 'parabola-game') {
+      pagePath = 'parabola-game/index.html';
+  } else {
+      document.querySelector("#" + page).scrollIntoView({ behavior: 'smooth' });
+      return;
+  }
+  
+  fetch(pagePath)
+      .then(response => response.text())
+      .then(html => {
+          document.querySelector("#content").innerHTML = html;
+      })
+      .catch(error => console.log("Error loading page:", error));
+}
+
+// Event listener untuk perubahan hash
+window.addEventListener("hashchange", () => {
+  const page = window.location.hash.substring(1) || "home";
+  loadPage(page);
+});
+
+// Muat halaman awal berdasarkan hash atau default ke 'home'
+window.addEventListener("load", () => {
+  const page = window.location.hash.substring(1) || "home";
+  loadPage(page);
+});

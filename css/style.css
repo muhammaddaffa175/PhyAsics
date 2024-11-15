@@ -246,7 +246,7 @@ body {
 }
 
 .game .row .game-card img {
-  width: 80%;
+  width: 50%;
   margin-bottom: 0.5rem;
 }
 
@@ -384,10 +384,20 @@ body {
   .contact .row form {
     padding-top: 0;
   }
+
+  .game .row .game-card img {
+    width: 80%;
+    margin-bottom: 0.5rem;
+  }
 }
 /*Mobile*/
 @media (max-width: 450px) {
   html {
     font-size: 55%;
+  }
+
+  .game .row .game-card img {
+    width: 90%;
+    margin-bottom: 0.5rem;
   }
 }

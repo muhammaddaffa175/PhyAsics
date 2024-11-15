@@ -1,0 +1,310 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Vector Addition</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background-color: #000000; /* Background warna hitam pekat */
+            color: #ffffff; /* Warna teks putih */
+        }
+
+        h2 {
+            text-align: center;
+            font-size: 36px;
+        }
+
+        h2 .vector-title {
+            color: #ffffff; /* Warna putih untuk Vector */
+        }
+
+        h2 .addition-title {
+            color: #b08d3b; /* Warna kuning sesuai tema untuk Addition */
+        }
+
+        #vectorInputs {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            margin-bottom: 20px;
+        }
+
+        .vector-input {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .vector-input label {
+            margin-right: 10px;
+            color: #ffffff; /* Warna teks putih */
+        }
+
+        input[type="number"] {
+            padding: 8px;
+            background-color: #333333; /* Warna input gelap */
+            border: 1px solid #b08d3b; /* Border emas */
+            color: #ffffff; /* Teks putih */
+            border-radius: 4px;
+        }
+
+        #result {
+            margin-top: 3px;
+            font-weight: bold;
+            text-align: center;
+            color: #ffffff; /* Warna teks putih */
+        }
+
+        canvas {
+            border: 2px solid #b08d3b; /* Warna emas */
+            margin-top: 20px;
+            background-color: #ededed; /* Background canvas gelap */
+        }
+
+        .buttons {
+            margin-bottom: 20px;
+            display: flex;
+            justify-content: center;
+        }
+
+        button {
+            margin: 0 10px;
+            padding: 8px 16px;
+            background-color: #b08d3b; /* Warna emas */
+            color: #000000; /* Warna teks hitam */
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-weight: bold;
+        }
+
+        button:hover {
+            background-color: #a17c30; /* Warna emas lebih gelap */
+        }
+
+        .delete-button {
+            background-color: #b08d3b; /* Warna emas */
+            color: #000000; /* Teks hitam */
+            border: none;
+            padding: 4px 10px;
+            cursor: pointer;
+            border-radius: 4px;
+            margin-left: 10px;
+        }
+
+        .delete-button:hover {
+            background-color: #a17c30; /* Warna emas lebih gelap */
+        }
+
+        .result-table {
+            border-collapse: collapse;
+            margin: 20px 0;
+            font-size: 18px;
+            text-align: left;
+            width: 50%;
+            max-width: 500px;
+            background-color: #333333; /* Background tabel gelap */
+            color: #ffffff; /* Teks putih */
+        }
+
+        .result-table th, .result-table td {
+            border: 1px solid #b08d3b; /* Border emas */
+            padding: 12px 15px;
+            text-align: center;
+        }
+
+        .result-table th {
+            background-color: #b08d3b; /* Warna emas */
+            color: #000000; /* Teks hitam */
+        }
+
+        .result-table tr:nth-child(even) {
+            background-color: #292929; /* Warna baris genap lebih gelap */
+        }
+
+        #result {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            width: 100%;
+        }
+    </style>
+</head>
+<body>
+
+<h2><span class="vector-title">Vector</span> <span class="addition-title">Addition</span></h2>
+
+<div id="vectorInputs">
+    <div class="vector-input" id="vector1">
+        <label>Magnitude: <input type="number" name="magnitude1" placeholder="Enter magnitude" required oninput="updateVectors()" /></label>
+        <label>Angle (degrees): <input type="number" name="angle1" placeholder="Enter angle" required oninput="updateVectors()" /></label>
+        <button class="delete-button" onclick="deleteVector(1)">Hapus Vektor</button>
+    </div>
+</div>
+
+<div class="buttons">
+    <button onclick="addVector()">Tambah Vektor</button>
+</div>
+
+<div id="result"></div>
+
+<canvas id="vectorCanvas" width="500" height="500"></canvas>
+
+<script>
+let vectorCount = 1;
+
+// Function to add a new vector input field
+function addVector() {
+    vectorCount++;
+    const newVectorInput = `
+        <div class="vector-input" id="vector${vectorCount}">
+            <label>Magnitude: <input type="number" name="magnitude${vectorCount}" placeholder="Enter magnitude" required oninput="updateVectors()" /></label>
+            <label>Angle (degrees): <input type="number" name="angle${vectorCount}" placeholder="Enter angle" required oninput="updateVectors()" /></label>
+            <button class="delete-button" onclick="deleteVector(${vectorCount})">Hapus Vektor</button>
+        </div>
+    `;
+    document.getElementById('vectorInputs').insertAdjacentHTML('beforeend', newVectorInput);
+}
+
+// Function to delete a vector input
+function deleteVector(id) {
+    const vectorElement = document.getElementById(`vector${id}`);
+    if (vectorElement) {
+        vectorElement.remove();
+        updateVectors();
+    }
+}
+
+// Function to update and redraw vectors on canvas
+function updateVectors() {
+    let sumX = 0;
+    let sumY = 0;
+    let vectors = [];
+    
+    // Clear canvas
+    const canvas = document.getElementById('vectorCanvas');
+    const ctx = canvas.getContext('2d');
+    ctx.clearRect(0, 0, canvas.width, canvas.height);
+
+    // Move the origin to the center of the canvas
+    ctx.translate(canvas.width / 2, canvas.height / 2);
+
+    // Draw axes
+    drawAxes(ctx, canvas.width, canvas.height);
+
+    // Loop through all vector inputs and calculate the result
+    for (let i = 1; i <= vectorCount; i++) {
+        const magnitudeInput = document.querySelector(`[name="magnitude${i}"]`);
+        const angleInput = document.querySelector(`[name="angle${i}"]`);
+        
+        if (magnitudeInput && angleInput) {
+            const magnitude = parseFloat(magnitudeInput.value);
+            const angle = parseFloat(angleInput.value);
+            
+            if (!isNaN(magnitude) && !isNaN(angle)) {
+                const radian = angle * Math.PI / 180;
+                const x = magnitude * Math.cos(radian);
+                const y = magnitude * Math.sin(radian);
+
+                vectors.push({x: x, y: y});
+                sumX += x;
+                sumY += y;
+
+                // Draw individual vector
+                drawVector(ctx, x, y, 'blue');
+            }
+        }
+    }
+
+    const resultMagnitude = Math.sqrt(sumX * sumX + sumY * sumY);
+    const resultAngle = Math.atan2(sumY, sumX) * 180 / Math.PI;
+
+    // Display result in a formatted table
+    document.getElementById('result').innerHTML = `
+        <table class="result-table">
+            <tr>
+                <th>Result</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Magnitude</td>
+                <td>${resultMagnitude.toFixed(2)}</td>
+            </tr>
+            <tr>
+                <td>Angle (degrees)</td>
+                <td>${resultAngle.toFixed(2)}</td>
+            </tr>
+        </table>
+    `;
+
+    // Draw resultant vector in red
+    drawVector(ctx, sumX, sumY, 'red');
+
+    // Draw dashed lines from each vector to resultant
+    vectors.forEach(vector => {
+        drawDashedLine(ctx, vector.x, vector.y, sumX, sumY);
+    });
+
+    // Reset translation to avoid affecting future drawings
+    ctx.translate(-canvas.width / 2, -canvas.height / 2);
+}
+
+// Function to draw a vector from the origin
+function drawVector(ctx, x, y, color) {
+    ctx.beginPath();
+    ctx.moveTo(0, 0);  // Start at the origin (center of canvas)
+    ctx.lineTo(x, -y); // Invert y to match the canvas coordinates
+    ctx.strokeStyle = color;
+    ctx.lineWidth = 2;
+    ctx.stroke();
+
+    // Draw arrowhead
+    const headlen = 10; // Length of the arrowhead
+    const angle = Math.atan2(-y, x);
+    ctx.beginPath();
+    ctx.moveTo(x, -y);
+    ctx.lineTo(x - headlen * Math.cos(angle - Math.PI / 6), -y - headlen * Math.sin(angle - Math.PI / 6));
+    ctx.lineTo(x - headlen * Math.cos(angle + Math.PI / 6), -y - headlen * Math.sin(angle + Math.PI / 6));
+    ctx.lineTo(x, -y);
+    ctx.fillStyle = color;
+    ctx.fill();
+}
+
+// Function to draw axes on the canvas
+function drawAxes(ctx, width, height) {
+    ctx.beginPath();
+    ctx.moveTo(-width / 2, 0);
+    ctx.lineTo(width / 2, 0);  // X-axis
+    ctx.moveTo(0, -height / 2);
+    ctx.lineTo(0, height / 2);  // Y-axis
+    ctx.strokeStyle = '#b08d3b';  // Emas
+    ctx.lineWidth = 1;
+    ctx.stroke();
+}
+
+// Function to draw a dashed line between two points
+function drawDashedLine(ctx, x1, y1, x2, y2) {
+    ctx.setLineDash([5, 5]);  // Set dashed line pattern
+    ctx.beginPath();
+    ctx.moveTo(x1, -y1);  // Invert y to match the canvas coordinates
+    ctx.lineTo(x2, -y2);
+    ctx.strokeStyle = 'gray';
+    ctx.lineWidth = 1;
+    ctx.stroke();
+    ctx.setLineDash([]);  // Reset to solid line after drawing
+}
+
+</script>
+</body>
+</html>

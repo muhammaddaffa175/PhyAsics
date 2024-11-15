@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Parabola - Pilih Level</title>
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+
+    <!-- My Style -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1 class="game-title">Parabola Quiz</h1>
+        <div class="level-grid">
+            <!-- Tombol Level 1-10 -->
+            <button onclick="goToLevel(1)" id="level1">Level 1</button>
+            <button onclick="goToLevel(2)" id="level2">Level 2</button>
+            <button onclick="goToLevel(3)" id="level3">Level 3</button>
+            <button onclick="goToLevel(4)" id="level4">Level 4</button>
+            <button onclick="goToLevel(5)" id="level5">Level 5</button>
+            <button onclick="goToLevel(6)" id="level6">Level 6</button>
+            <button onclick="goToLevel(7)" id="level7">Level 7</button>
+            <button onclick="goToLevel(8)" id="level8">Level 8</button>
+            <button onclick="goToLevel(9)" id="level9">Level 9</button>
+            <button onclick="goToLevel(10)" id="level10">Level 10</button>
+
+            <!-- Pop-up Notifikasi -->
+            <div id="popup" class="popup-overlay" style="display: none;">
+                <div class="popup-content">
+                    <p id="popupMessage"></p>
+                    <button onclick="closePopup()">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script src="scripts.js"></script>
+</body>
+</html>

@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Game Parabola - Soal Level</title>
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,300;0,400;0,700;1,700&display=swap"
+      rel="stylesheet"
+    />
+
+    <!-- Feather Icons -->
+    <script src="https://unpkg.com/feather-icons"></script>
+    
+    <!-- My Style -->
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Game Parabola</h1>
+        <h2 id="level-title">Level </h2>
+        <p id="question">Loading soal...</p>
+
+        <!-- Tempat untuk menampilkan hint berupa gambar atau rumus -->
+        <div id="hintContainer">
+            <p id="hintText">Persamaan yang digunakan:</p>
+        </div>
+
+        <!-- Canvas untuk visualisasi game lemparan bola basket -->
+        <canvas id="basketCanvas" width="600" height="400" style="border:1px solid #000; background-color: #e0f7fa;"></canvas>
+
+        <input type="text" id="answer" placeholder="Masukkan jawaban Anda">
+        <button onclick="submitAnswer()">Submit Jawaban</button>
+        <button onclick="goBack()">Kembali ke Pilih Level</button>
+        <button id="nextLevel" onclick="nextLevel()" style="display: none;">Next Level</button>
+        <button id="hintButton" onclick="showHint()">Hint</button>
+        
+    </div>
+    <!-- Pop-up Notifikasi -->
+<div id="popup" class="popup-overlay" style="display: none;">
+    <div class="popup-content">
+        <p id="popupMessage"></p>
+        <button onclick="closePopup()">Tutup</button>
+    </div>
+</div>
+
+    <script src="level.js"></script>
+</body>
+</html>
