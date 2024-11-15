@@ -23,10 +23,27 @@
   </nav>
   <main class="profile-container">
     <h1>User Profile</h1>
+
+    <img src="default-profile.png" alt="Profile Photo" class="profile-photo" id="profile-photo" />
+    <form id="update-photo-form">
+      <button type="button" id="show-file-input">Update Photo</button>
+      <div id="file-upload-container" style="display: none;">
+        <input type="file" id="profile-photo-upload" accept="image/*" />
+        <button type="submit" id="submit-photo">Submit</button>
+      </div>
+    </form>
+
     <div class="profile-details">
       <p><strong>Username:</strong> <span id="profile-username">Loading...</span></p>
       <p><strong>Email:</strong> <span id="profile-email">Loading...</span></p>
     </div>
+
+    <form id="update-password-form">
+      <label for="new-password">New Password:</label>
+      <input type="password" id="new-password" required />
+      <button type="submit">Update Password</button>
+    </form>
+    
   </main>
   <script type="module" src="js/profile.js"></script>
 </body>

@@ -1,3 +1,5 @@
+
+
 // Ambil elemen canvas dan context
 const canvas = document.getElementById("basketCanvas");
 const ctx = canvas.getContext("2d");
