@@ -16,7 +16,7 @@ body {
   font-family: "Poppins", sans-serif;
   background-color: var(--background);
   color: #fff;
-  min-height: 10000px;
+  min-height: 1000px;
 }
 
 /* Navbar */
@@ -70,6 +70,12 @@ body {
   transform: scaleX(0.6);
 }
 
+.navbar-extra {
+  display: flex;
+  align-items: center;
+  gap: 0.4rem; /* Jarak antar elemen */
+}
+
 .navbar .navbar-extra a {
   color: #fff;
   margin: 0 0.5rem;
@@ -90,14 +96,32 @@ body {
   text-decoration: none;
   transition: background-color 0.3s, color 0.3s;
   position: relative;
-  top: -7px;
+  top: -3px;
 
 }
 
-.navbar .navbar-extra .login-button:hover {
+.navbar .navbar-extra #usernameDisplay {
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.4rem 1rem;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 8px;
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  display: none; /* Mulai dengan display: none; hanya akan tampil saat user login */
+}
+
+.navbar .navbar-extra .login-button:hover, 
+.navbar .navbar-extra #usernameDisplay:hover {
   color: var(--primary);
   background-color: #fff;
   border-color: var(--primary);
+}
+
+#search {
+  display: flex;
+  align-items: center;
 }
 
 #menu {
@@ -368,6 +392,17 @@ body {
   .navbar .navbar-nav a:hover::after {
     transform: scaleX(0.2);
   }
+
+  .navbar-extra {
+    gap: 0.5rem; /* Mengurangi jarak antar elemen di layar kecil */
+  }
+
+  .navbar .navbar-extra .login-button,
+  .navbar .navbar-extra #usernameDisplay {
+    padding: 0.3rem 0.8rem;
+    font-size: 0.9rem;
+  }
+}
   /*ATUR BACKGROUND*/
   .hero {
     flex-wrap: wrap;
@@ -410,7 +445,7 @@ body {
     width: 80%;
     margin-bottom: 0.5rem;
   }
-}
+
 /*Mobile*/
 @media (max-width: 450px) {
   html {

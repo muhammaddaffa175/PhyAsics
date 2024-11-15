@@ -1,0 +1,78 @@
+body {
+    font-family: "Poppins", sans-serif;
+    background-color: #2c2c2c;
+    color: #fff;
+    margin: 0;
+    padding: 0;
+  }
+  
+  .navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem 7%;
+    background-color: rgba(0, 0, 0, 0.9);
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+  }
+  
+  .navbar .navbar-logo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #fff;
+  }
+  
+  .navbar .navbar-logo span {
+    color: #d4a553;
+  }
+  
+  .navbar .navbar-nav {
+    display: flex;
+    align-items: center;
+  }
+  
+  .navbar .navbar-nav a {
+    color: #fff;
+    margin: 0 1rem;
+    text-decoration: none;
+  }
+  
+  .navbar .navbar-nav .logout-btn {
+    background-color: #d4a553;
+    border: none;
+    padding: 0.5rem 1rem;
+    color: #000;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 1rem;
+  }
+  
+  .profile-container {
+    max-width: 800px;
+    margin: 3rem auto;
+    background-color: #3e3e3e;
+    padding: 2rem;
+    border-radius: 8px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+  }
+  
+  .profile-container h1 {
+    text-align: center;
+    color: #d4a553;
+  }
+  
+  .profile-details {
+    margin-top: 2rem;
+    font-size: 1.2rem;
+    color: #fff;
+  }
+  
+  .profile-details p {
+    margin: 0.5rem 0;
+  }
+  
+  .profile-details span {
+    font-weight: bold;
+  }
+  

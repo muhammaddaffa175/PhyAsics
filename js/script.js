@@ -46,3 +46,18 @@ window.addEventListener("load", () => {
   const page = window.location.hash.substring(1) || "home";
   loadPage(page);
 });
+
+document.getElementById("search").addEventListener("click", (event) => {
+  event.preventDefault();
+  const searchContainer = document.getElementById("searchContainer");
+  searchContainer.style.display = searchContainer.style.display === "none" ? "flex" : "none";
+});
+
+document.getElementById("searchButton").addEventListener("click", () => {
+  const searchTerm = document.getElementById("searchInput").value.trim().toLowerCase();
+  
+  if (searchTerm) {
+    // Logika pencarian atau redirect ke hasil pencarian
+    alert("Searching for: " + searchTerm);
+  }
+});

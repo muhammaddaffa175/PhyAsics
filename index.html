@@ -23,7 +23,7 @@
   <body>
     <!-- Navbar Start -->
     <nav class="navbar">
-      <a href="#" class="navbar-logo">Phy<span>Asics</span></a>
+      <a href="index.html" class="navbar-logo">Phy<span>Asics</span></a>
 
       <div class="navbar-nav">
         <a href="#home">Home</a>
@@ -32,9 +32,15 @@
         <a href="#contact">Contact</a>
       </div>
       <div class="navbar-extra">
+
+        <div class="search-container" id="searchContainer" style="display: none;">
+          <input type="text" id="searchInput" placeholder="Search..." />
+          <button id="searchButton">Search</button>
+        </div>
         <a href="#" id="search"><i data-feather="search"></i></a>
+
         <a href="login/index.html" id="log-in" class="login-button">Login</a>
-        <a href="#" id="menu"><i data-feather="menu"></i></a>
+        <a href="profile.html" id="usernameDisplay" style="display: none;">Username</a>       <a href="#" id="menu"><i data-feather="menu"></i></a>
       </div>
     </nav>
 
@@ -122,12 +128,6 @@
     </form>
     
     </div>
-
-
-
-
-
-
     </section>
 
     <!-- COntact Section Start -->
@@ -137,6 +137,8 @@
     </script>
 
     <!-- My Javascript -->
+    <script type="module" src="js/app.js"></script>
+    <script type="module" src="js/auth.js"></script>
     <script src="js/script.js"></script>
   </body>
 </html>
