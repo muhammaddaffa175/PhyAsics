@@ -48,7 +48,7 @@ body {
 .navbar .navbar-nav a {
   color: #fff;
   display: inline-block;
-  font-size: 1rem;
+  font-size: 1.1rem;
   margin: 0 1rem;
 }
 
@@ -77,6 +77,27 @@ body {
 
 .navbar .navbar-extra a:hover {
   color: var(--primary);
+}
+
+/* Styling untuk tombol Login */
+.navbar .navbar-extra .login-button {
+  color: #fff;
+  font-size: 1rem;
+  padding: 0.4rem 1rem;
+  background-color: transparent;
+  border: 2px solid #fff;
+  border-radius: 8px; /* Sudut tidak terlalu lancip */
+  text-decoration: none;
+  transition: background-color 0.3s, color 0.3s;
+  position: relative;
+  top: -7px;
+
+}
+
+.navbar .navbar-extra .login-button:hover {
+  color: var(--primary);
+  background-color: #fff;
+  border-color: var(--primary);
 }
 
 #menu {
