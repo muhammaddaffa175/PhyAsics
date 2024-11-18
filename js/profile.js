@@ -27,7 +27,7 @@ onAuthStateChanged(auth, (user) => {
         
         // Menampilkan data username dan email di profile
         profileUsername.textContent = userData.username || "Anonymous";
-        profileEmail.textContent = user.email || "No email found";
+        profileEmail.textContent = userData.email || "No email found";
 
         // Menampilkan foto profil jika ada
         if (userData.photoURL) {
@@ -36,7 +36,7 @@ onAuthStateChanged(auth, (user) => {
           profilePhoto.src = "default-profile.png"; // Foto default jika tidak ada foto profil
         }
       } else {
-        profileUsername.textContent = user.username || "No user data found.";
+        profileUsername.textContent = user.displayName || "No user data found.";
         profileEmail.textContent = user.email || "No email found";
       }
     }).catch((error) => {
