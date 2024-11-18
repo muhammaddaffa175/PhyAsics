@@ -1,18 +1,56 @@
 import app from './app.js';
-import { getDatabase, ref, set, get } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+import { getDatabase, ref, set, get, update } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
 
 const db = getDatabase(app);  // Using the Firebase app instance
 
+// Fungsi untuk menyimpan progress level pengguna
+export const saveGameProgress = (userId, currentLevel, unlockedLevels) => {
+  const progressRef = ref(db, `users/${userId}/progress`);
+  return update(progressRef, {
+    currentLevel: currentLevel,
+    unlockedLevels: unlockedLevels
+  })
+  .then(() => {
+    console.log(`Progress level berhasil disimpan untuk userId: ${userId}`);
+  })
+  .catch((error) => {
+    console.error("Error saat menyimpan progress level:", error.message);
+  });
+};
+
+// Fungsi untuk mengambil progress level pengguna
+export const getGameProgress = async (userId) => {
+  const progressRef = ref(db, `users/${userId}/progress`);
+  try {
+    const snapshot = await get(progressRef);
+    if (snapshot.exists()) {
+      const progressData = snapshot.val();
+      console.log("Progress level ditemukan:", progressData);
+      return progressData;
+    } else {
+      console.log("Progress level tidak ditemukan.");
+      return null;
+    }
+  } catch (error) {
+    console.error("Error saat mengambil progress level:", error.message);
+    return null;
+  }
+};
+
 // Fungsi untuk menyimpan data pengguna (termasuk unlocked levels)
-export const saveUserData = (userId, data) => {
+export const saveUserData = (userId, username, email) => {
   const userRef = ref(db, `users/${userId}`);
-  return set(userRef, data)
-    .then(() => {
-      console.log(`Data pengguna berhasil disimpan untuk userId: ${userId}`);
-    })
-    .catch((error) => {
-      console.error("Gagal menyimpan data pengguna:", error);
-    });
+  return set(userRef, {
+      username: username,
+      email: email,
+      photoURL: ""
+  })
+  .then(() => {
+      console.log(`User data saved successfully for userId: ${userId}`);
+  })
+  .catch((error) => {
+      console.error("Failed to save user data:", error.message);
+  });
 };
 
 // Fungsi untuk mengambil data pengguna dari Firebase Realtime Database

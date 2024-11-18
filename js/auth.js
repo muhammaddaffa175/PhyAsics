@@ -7,17 +7,26 @@ import {
     onAuthStateChanged, 
     updateProfile 
 } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-auth.js";
+
+import { getDatabase, ref, set } from "https://www.gstatic.com/firebasejs/11.0.2/firebase-database.js";
+import { saveUserData} from './database.js';
 import app from './app.js';
 
 const auth = getAuth(app);
+const db = getDatabase(app);
 
 // Register new user
 export function registerUser(email, password, username) {
     return createUserWithEmailAndPassword(auth, email, password)
         .then((userCredential) => {
-            // Update profile with username
-            return updateProfile(userCredential.user, {
+            const user = userCredential.user;
+            // Update profile dengan username
+            return updateProfile(user, {
                 displayName: username
+            })
+            .then(() => {
+                // Simpan data pengguna ke Firebase Realtime Database
+                return saveUserData(user.uid, username, email);
             });
         });
 }
@@ -70,13 +79,13 @@ onAuthStateChanged(auth, (user) => {
     const userDisplay = document.getElementById("usernameDisplay");
 
     if (user) {
-        // User is logged in, display username
+        console.log("User logged in:", user.uid);
         loginButton.style.display = "none";
         userDisplay.style.display = "block";
         userDisplay.textContent = user.displayName || "Profile";
-        userDisplay.href = "profile.html"; // Direct to profile page on click
+        userDisplay.href = "profile.html";
     } else {
-        // User is not logged in, display login button
+        console.log("User not logged in.");
         loginButton.style.display = "block";
         userDisplay.style.display = "none";
     }
@@ -86,6 +95,7 @@ onAuthStateChanged(auth, (user) => {
 document.getElementById("logout-button")?.addEventListener("click", async () => {
     try {
         await logoutUser();
+        alert("Logged out successfully!");
         window.location.href = "index.html"; // Redirect to main page after logout
     } catch (error) {
         console.error("Error during logout:", error.message);
