@@ -36,7 +36,7 @@ onAuthStateChanged(auth, (user) => {
           profilePhoto.src = "default-profile.png"; // Foto default jika tidak ada foto profil
         }
       } else {
-        profileUsername.textContent = "No user data found.";
+        profileUsername.textContent = user.username || "No user data found.";
         profileEmail.textContent = user.email || "No email found";
       }
     }).catch((error) => {
